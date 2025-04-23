@@ -41,7 +41,7 @@ app.get("/logowanie/:login/:haslo",(req,res)=>{
     let login = req.params.login
     let haslo = req.params.haslo
 
-    let sql = `select * from osoby where login = '${login}' and haslo = '${md5(haslo)}' `
+    let sql = `select * from osoby where login = '${login}' and haslo = '${md5(haslo)}'`
     con.query(sql,(err,result)=>{
         console.log(result)
         res.json(result)

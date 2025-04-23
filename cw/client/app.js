@@ -18,6 +18,26 @@ async function rejestracja() {
     }
 }
 
-async function logowanie(){
-    
+async function logowanie() {
+    let login = document.getElementById('login').value
+    let haslo = document.getElementById('haslo').value
+    let url = `http://localhost:3000/logowanie/${login}/${haslo}`
+    let response = await fetch(url)
+    let data = await response.json()
+
+    if (data.length === 0) {
+        document.getElementById('log-info').innerHTML = 'nie zalogowano'
+    } else {
+        document.getElementById('log-info').innerHTML = 'zalogowano'
+        if (data[0].uprawnienia === 'user') {
+            window.location.href = './user.html'
+            localStorage.setItem('login', JSON.stringify(data[0]))
+            localStorage.setItem('uprawnienia', JSON.stringify(data[0].uprawnienia))
+        }
+        if (data[0].uprawnienia === 'admin') {
+            window.location.href = './admin.html'
+            localStorage.setItem('login', JSON.stringify(data[0]))
+            localStorage.setItem('uprawnienia', JSON.stringify(data[0].uprawnienia))
+        }
+    }
 }
