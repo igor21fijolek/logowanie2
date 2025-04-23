@@ -47,6 +47,7 @@ app.get("/logowanie/:login/:haslo",(req,res)=>{
     con.query(sql,(err,result)=>{
         if(err)throw err
         console.log(result);
+        res.json(result)
     })
 })
 

@@ -20,14 +20,24 @@ async function logowanie(){
     let login=  document.getElementById('login').value
     let haslo = document.getElementById("haslo").value
 
-    let url = `http://localhost:3000/logowanie/${login}/${haslo}`
-
+    let url = `http://localhost:3000/logowanie/${login}/${haslo}`;
     let response = await fetch(url)
-    let data  = await respone.json()
+    let data  = await response.json()
+    console.log(data);
     if(data.length  === 0){
         document.getElementById('logowanie-info').innerHTML = 'nie zalogowano'
     }else{
         document.getElementById('logowanie-info').innerHTML = 'zalogowano'
+        if(data[0].uprawnienia === 'user'){
+            window.location.href = './user.html'
+            localStorage.setItem('login', JSON.stringify(data[0]))
+            localStorage.setItem('uprawnienia', JSON.stringify(data[0].uprawnienia))
+        }
+        if(data[0].uprawnienia === 'admin'){
+            window.location.href = './admin.html'
+            localStorage.setItem('login', JSON.stringify(data[0]))
+            localStorage.setItem('uprawnienia', JSON.stringify(data[0].uprawnienia))
+        }
     }
 
 }
